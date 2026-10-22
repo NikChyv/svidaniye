@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Соня, тебе повестка</title>
+<meta property="og:title" content="Соня, тебе официальная повестка 🐕">
+<meta property="og:description" content="Совет Такс приглашает на свидание. Отказ технически не предусмотрен.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐕</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbf3e3; --card:#fffaf0; --ink:#2b1a12; --muted:#7a6352;
+    --gold:#b8892b; --wine:#7a1730; --wine2:#a3203f; --green:#2f7d4a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;overflow-x:hidden}
+  body{
+    background:
+      radial-gradient(circle at 20% 10%, #fff8ea 0, transparent 40%),
+      radial-gradient(circle at 80% 60%, #f6e7c9 0, transparent 45%),
+      var(--paper);
+    color:var(--ink); font-family:'Rubik',system-ui,sans-serif; font-size:17px; line-height:1.55;
+  }
+  .wrap{max-width:780px;margin:0 auto;padding:0 16px}
+  h1,h2,h3{font-family:'Lobster',cursive;font-weight:400;color:var(--wine);line-height:1.15;margin:0 0 .4em}
+  h1{font-size:clamp(44px,11vw,84px)}
+  h2{font-size:clamp(30px,7vw,44px);text-align:center}
+  p{margin:.4em 0}
+  section{margin:56px 0}
+  .muted{color:var(--muted)}
+  svg.dog{display:block;overflow:visible}
+  svg.fit{max-width:100%;height:auto}
+
+  /* ---------- бегущие таксы ---------- */
+  .track{position:relative;height:64px;overflow:hidden;border-top:2px dashed #e2cfa6;border-bottom:2px dashed #e2cfa6;background:#f7ebd2}
+  .track.tall{height:110px;background:transparent;border:0}
+  .runner{position:absolute;left:0;bottom:4px;animation:run var(--dur,9s) linear var(--delay,0s) infinite;will-change:transform}
+  @keyframes run{from{transform:translateX(-110%)}to{transform:translateX(100vw)}}
+  .run .leg{animation:step .28s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 0}
+  .run .leg.b{animation-delay:-.14s}
+  @keyframes step{from{transform:rotate(22deg)}to{transform:rotate(-22deg)}}
+  .tail{animation:wag .35s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:100% 100%}
+  @keyframes wag{from{transform:rotate(-14deg)}to{transform:rotate(16deg)}}
+  .tracklabel{position:absolute;right:12px;top:6px;font-size:13px;color:var(--muted);font-style:italic}
+
+  /* ---------- hero ---------- */
+  .hero{text-align:center;padding-top:36px;position:relative}
+  .kicker{letter-spacing:.25em;text-transform:uppercase;font-size:12px;color:var(--gold);font-weight:700}
+  .hero .lead{font-size:clamp(17px,4.4vw,21px);max-width:560px;margin:10px auto 0}
+  .herodog{display:flex;justify-content:center;margin:18px 0 6px;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(-8px)}}
+  .stamp{
+    position:absolute;right:4px;top:22px;transform:rotate(14deg);
+    border:3px solid var(--wine2);color:var(--wine2);border-radius:8px;padding:6px 10px;
+    font-weight:900;font-size:13px;line-height:1.1;text-transform:uppercase;letter-spacing:.06em;opacity:.85;
+    background:rgba(255,255,255,.35)
+  }
+  @media (max-width:520px){.stamp{top:-4px;right:0;font-size:10px}.hero .kicker{margin-top:34px}}
+
+  /* ---------- карточка-повестка ---------- */
+  .card{
+    background:var(--card);border:2px solid var(--gold);outline:1px solid var(--gold);outline-offset:6px;
+    border-radius:6px;padding:28px 24px;box-shadow:0 18px 40px -20px rgba(80,40,10,.35);margin:0 6px
+  }
+  .card h3{font-size:30px;text-align:center;margin-bottom:2px}
+  .card .num{text-align:center;color:var(--muted);font-size:13px;margin-bottom:18px}
+  .row{display:flex;gap:14px;padding:12px 0;border-bottom:1px dashed #e4d3b0}
+  .row:last-child{border-bottom:0}
+  .row .ico{font-size:26px;width:36px;flex:none;text-align:center}
+  .row b{display:block;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .row span{font-size:19px;font-weight:500}
+  .row small{display:block;color:var(--muted);font-size:14px}
+
+  /* ---------- обратный отсчёт ---------- */
+  .countdown{text-align:center}
+  .cd{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:10px}
+  .cd div{background:var(--wine);color:#fff3dc;border-radius:12px;min-width:76px;padding:10px 8px}
+  .cd strong{display:block;font-size:34px;font-weight:900;font-variant-numeric:tabular-nums}
+  .cd em{font-style:normal;font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+  .pun{font-size:13px;color:var(--muted);margin-top:8px}
+
+  /* ---------- дресс-код ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}
+  .dc{background:var(--card);border-radius:14px;padding:16px;text-align:center;border:2px solid #ead9b4;position:relative}
+  .dc .pic{height:120px;display:flex;align-items:flex-end;justify-content:center}
+  .dc .verdict{font-weight:900;margin-top:8px}
+  .ok{color:var(--green)} .bad{color:var(--wine2)}
+  .dc.no .pic{filter:grayscale(.3)}
+  .dc.no::after{content:"✕";position:absolute;top:6px;right:12px;font-size:28px;color:var(--wine2);font-weight:900}
+
+  /* ---------- шкала радости ---------- */
+  .meter{background:var(--card);border-radius:14px;border:2px solid #ead9b4;padding:18px}
+  .meter .dogbox{overflow:hidden;height:150px;display:flex;align-items:flex-end}
+  input[type=range]{width:100%;accent-color:var(--wine);margin-top:12px;height:28px}
+  .meterlabel{text-align:center;font-weight:700;font-size:19px;min-height:2.6em;margin-top:6px}
+
+  /* ---------- оргкомитет ---------- */
+  .org{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+  .member{text-align:center;background:var(--card);border-radius:14px;padding:14px 10px;border:2px solid #ead9b4}
+  .member .pic{height:100px;display:flex;align-items:flex-end;justify-content:center}
+  .member b{display:block;margin-top:6px}
+  .member small{color:var(--muted);font-size:14px;line-height:1.35;display:block}
+
+  /* ---------- программа ---------- */
+  .timeline{list-style:none;padding:0;margin:0;border-left:3px solid var(--gold);margin-left:10px}
+  .timeline li{position:relative;padding:8px 0 12px 22px}
+  .timeline li::before{content:"🐾";position:absolute;left:-14px;top:8px;font-size:18px;background:var(--paper);line-height:1}
+  .timeline time{font-weight:900;color:var(--wine);margin-right:6px}
+
+  /* ---------- FAQ ---------- */
+  details{background:var(--card);border:2px solid #ead9b4;border-radius:12px;padding:12px 16px;margin:10px 0}
+  summary{cursor:pointer;font-weight:700;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"🐶 ";}
+  details[open] summary::before{content:"🐕 ";}
+  details p{margin-top:8px}
+
+  /* ---------- RSVP ---------- */
+  .rsvp{text-align:center;padding:30px 12px 60px}
+  .btns{display:flex;justify-content:center;align-items:center;gap:24px;margin-top:22px;min-height:90px}
+  button{font-family:inherit;font-weight:900;font-size:22px;border:0;border-radius:999px;padding:16px 38px;cursor:pointer}
+  #yes{background:var(--green);color:#fff;box-shadow:0 8px 0 #1f5532;transition:transform .25s}
+  #yes:active{box-shadow:0 3px 0 #1f5532}
+  #no{background:#ddd0b8;color:#5a4636;font-size:18px;padding:12px 26px;transition:left .15s,top .15s;z-index:60}
+
+  /* ---------- финальный экран ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(43,26,18,.72);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+  .overlay.show{display:flex}
+  .yay{background:var(--card);border:3px solid var(--gold);border-radius:18px;max-width:440px;width:100%;padding:26px 20px;text-align:center;animation:pop .45s cubic-bezier(.2,1.6,.4,1)}
+  @keyframes pop{from{transform:scale(.4);opacity:0}}
+  .yay h2{font-size:48px;margin-bottom:6px}
+  .yay .dance{display:flex;justify-content:center;animation:dance .5s ease-in-out infinite alternate}
+  @keyframes dance{from{transform:rotate(-6deg) translateY(0)}to{transform:rotate(6deg) translateY(-10px)}}
+  .yay button{font-size:16px;background:var(--wine);color:#fff;padding:12px 22px;margin-top:14px}
+
+  .drop{position:fixed;top:-120px;z-index:120;pointer-events:none;animation:fall var(--t,3s) linear forwards}
+  @keyframes fall{to{transform:translateY(calc(100vh + 160px)) rotate(var(--r,360deg))}}
+  .zoomie{position:fixed;z-index:90;pointer-events:none;animation:zoom 1.6s ease-in forwards}
+  @keyframes zoom{to{transform:translateX(110vw)}}
+
+  footer{text-align:center;color:var(--muted);font-size:14px;padding:30px 16px 50px}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:0s!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+
+<div class="track" id="trackTop"></div>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="stamp">Одобрено<br>Советом Такс</div>
+    <div class="kicker">Совет Такс Республики Беларусь</div>
+    <h1>Соня,<br>тебе повестка</h1>
+    <div class="herodog" id="heroDog"></div>
+    <p class="lead">Совет Такс уполномочен сообщить: ты официально приглашена на&nbsp;свидание. Явка обязательна. Таксы уже в&nbsp;курсе, отменить ничего нельзя — они&nbsp;расстроятся.</p>
+  </header>
+
+  <!-- ДЕТАЛИ -->
+  <section>
+    <div class="card">
+      <h3>Повестка № 23/10</h3>
+      <div class="num">выдана гражданке Соне, лучшей девушке в радиусе всех такс</div>
+      <div class="row"><div class="ico">📅</div><div><b>Когда</b><span>Завтра, пятница, 23 октября</span></div></div>
+      <div class="row"><div class="ico">🕘</div><div><b>Во сколько</b><span>21:00</span><small>Таксы не прощают опозданий. Тебе простят, но они будут смотреть.</small></div></div>
+      <div class="row"><div class="ico">🏮</div><div><b>Где</b><span>Ресторан «Гайдзин»</span><small>Столик забронирован. Таксы туда не войдут, они ждут снаружи и переживают.</small></div></div>
+      <div class="row"><div class="ico">🎩</div><div><b>Форма одежды</b><span>Парадная</span><small>Да, это серьёзно. Смотри раздел «Дресс-код», там всё на таксах объяснено.</small></div></div>
+      <div class="row"><div class="ico">🤵</div><div><b>Сопровождающий</b><span>Никита</span><small>Будет в парадном. Возможно, с бабочкой. Нервничает.</small></div></div>
+    </div>
+  </section>
+
+  <!-- ОТСЧЁТ -->
+  <section class="countdown">
+    <h2>До свидания осталось</h2>
+    <div class="cd" id="cd">
+      <div><strong id="cdH">--</strong><em>часов</em></div>
+      <div><strong id="cdM">--</strong><em>минут</em></div>
+      <div><strong id="cdS">--</strong><em>секунд</em></div>
+    </div>
+    <p class="pun" id="cdNote">*не «до свидания», а «до свидания». Чувствуешь разницу? Таксы чувствуют.</p>
+  </section>
+
+</div>
+
+<div class="track tall" id="longTrack"><span class="tracklabel">↓ самая длинная такса Гродно. ждём, пока пройдёт</span></div>
+
+<div class="wrap">
+
+  <!-- ДРЕСС-КОД -->
+  <section>
+    <h2>Дресс-код: парадный</h2>
+    <p class="muted" style="text-align:center">Наглядное пособие от отдела дресс-контроля</p>
+    <div class="grid" style="margin-top:16px">
+      <div class="dc"><div class="pic" id="dc1"></div><div class="verdict ok">✓ Смокинг + цилиндр</div><small class="muted">Идеально. Эталон. Так и надо.</small></div>
+      <div class="dc"><div class="pic" id="dc2"></div><div class="verdict ok">✓ Бабочка</div><small class="muted">Достаточно парадно. Пропустим.</small></div>
+      <div class="dc no"><div class="pic" id="dc3"></div><div class="verdict bad">✕ Это Геннадий</div><small class="muted">Геннадий пришёл без бабочки. Его не пустили. Не будь как Геннадий.</small></div>
+    </div>
+  </section>
+
+  <!-- ШКАЛА -->
+  <section>
+    <h2>Шкала моей радости</h2>
+    <p class="muted" style="text-align:center">Если ты придёшь. Измеряется в длине таксы. Подвигай.</p>
+    <div class="meter">
+      <div class="dogbox" id="meterDog"></div>
+      <input type="range" min="1" max="10" value="3" id="meterRange" aria-label="Длина таксы">
+      <div class="meterlabel" id="meterLabel"></div>
+    </div>
+  </section>
+
+  <!-- ПРОГРАММА -->
+  <section>
+    <h2>Протокол мероприятия</h2>
+    <ul class="timeline">
+      <li><time>20:58</time> Никита нервно поправляет бабочку</li>
+      <li><time>21:00</time> Соня эффектно появляется. Где-то вдалеке аплодируют таксы</li>
+      <li><time>21:01</time> Обязательный комплимент №1</li>
+      <li><time>21:05</time> Изучение меню с очень серьёзным лицом</li>
+      <li><time>21:20</time> Комплименты №2–№47 (в свободном порядке)</li>
+      <li><time>22:30</time> Десерт. Обсуждению не подлежит</li>
+      <li><time>23:??</time> Вечерняя прогулка. Таксы настаивают</li>
+    </ul>
+  </section>
+
+  <!-- ОРГКОМИТЕТ -->
+  <section>
+    <h2>Оргкомитет</h2>
+    <div class="org">
+      <div class="member"><div class="pic" id="m1"></div><b>Борис Сосискин</b><small>Председатель. Отвечает за длину мероприятия</small></div>
+      <div class="member"><div class="pic" id="m2"></div><b>Сарделька Петровна</b><small>Дресс-контроль. Без бабочки не пустит даже Никиту</small></div>
+      <div class="member"><div class="pic" id="m3"></div><b>Пирожок</b><small>Дегустатор. Гарантирует, что будет вкусно</small></div>
+      <div class="member"><div class="pic" id="m4"></div><b>Колбасян</b><small>Охраняет кнопку «Нет». Очень хорошо охраняет</small></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <h2>Частые вопросы</h2>
+    <details><summary>А если я не хочу?</summary><p>Такой вариант технически не предусмотрен. Можешь проверить кнопку внизу. Колбасян на посту.</p></details>
+    <details><summary>Почему тут столько такс?</summary><p>Такса — это примерно три собаки в длину и половина в высоту. Идеальная собака. А ты — идеальная девушка. Совпадение? Совет Такс считает, что нет.</p></details>
+    <details><summary>Что значит «парадная форма»?</summary><p>Это значит, что сегодня мы красивые. Таксы — в бабочках. Ты — как всегда, красивее всех, но чуть-чуть торжественнее.</p></details>
+    <details><summary>Будут ли на свидании настоящие таксы?</summary><p>Нет. Таксы нарисованные. Ресторан настоящий. Никита настоящий. Чувства — тоже настоящие.</p></details>
+    <details><summary>Кто платит?</summary><p>Таксы скинулись. (Шутка. У такс нет карманов. Платит Никита.)</p></details>
+  </section>
+
+  <!-- RSVP -->
+  <section class="rsvp">
+    <h2>Итак, Соня, ты придёшь?</h2>
+    <p class="muted">Подумай хорошенько. Таксы смотрят.</p>
+    <div class="btns">
+      <button id="yes">Да! 💛</button>
+      <button id="no">Нет</button>
+    </div>
+  </section>
+
+</div>
+
+<div class="track" id="trackBottom"></div>
+
+<footer>
+  Сделано с любовью и избыточным количеством такс.<br>
+  Ни одна такса не пострадала при создании этого сайта.<br>
+  <span style="opacity:.75">P.S. Тапни куда-нибудь на странице 🐾</span><br><br>
+  — Никита
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="yay">
+    <h2>УРА!!!</h2>
+    <div class="dance" id="yayDog"></div>
+    <p><b>Таксы ликуют.</b> Ответ зафиксирован в Государственном Реестре Свиданий.</p>
+    <p class="muted">Завтра, 21:00, «Гайдзин», форма одежды парадная. Скриншот этого экрана юридически обязывает 😌</p>
+    <button id="closeYay">Закрыть (таксы останутся)</button>
+  </div>
+</div>
+
+<script>
+/* ===== Генератор такс ===== */
+const COATS = [
+  ['#a0522d','#5c2e14'], // рыжая
+  ['#2b1d16','#120a06'], // чёрная
+  ['#e0b273','#a8743a'], // кремовая
+  ['#7d6b60','#3e3029'], // мраморная
+  ['#b5651d','#6b3410']  // огненная
+];
+const rnd = (a,b)=>a+Math.random()*(b-a);
+const pick = a=>a[Math.floor(Math.random()*a.length)];
+
+function dog(len=120, o={}){
+  const [c,d] = o.coat || COATS[0];
+  const W = len+100, hx = 50+len, hy = 36, s = o.scale||1;
+  const legs = [[48,'a'],[64,'b'],[40+len-28,'b'],[40+len-12,'a']];
+  let g = '';
+  // хвост
+  g += `<path class="tail" d="M48 46 Q 26 34 16 12" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/>`;
+  // лапы
+  legs.forEach(([x,k])=>{
+    g += `<g class="leg ${k}"><rect x="${x}" y="58" width="10" height="26" rx="4" fill="${c}"/><ellipse cx="${x+6}" cy="84" rx="7" ry="3.5" fill="${d}"/></g>`;
+  });
+  // тело
+  g += `<rect x="38" y="33" width="${len+6}" height="35" rx="17" fill="${c}"/>`;
+  g += `<rect x="52" y="56" width="${Math.max(len-30,10)}" height="8" rx="4" fill="#000" opacity=".07"/>`;
+  if (o.spots) for(let i=0;i<Math.max(2,len/45);i++) g += `<ellipse cx="${rnd(50,30+len)}" cy="${rnd(38,58)}" rx="${rnd(4,8)}" ry="${rnd(3,6)}" fill="${d}" opacity=".5"/>`;
+  // голова
+  g += `<ellipse cx="${hx}" cy="${hy}" rx="21" ry="18" fill="${c}"/>`;
+  g += `<ellipse cx="${hx+21}" cy="${hy+9}" rx="18" ry="10" fill="${c}"/>`;
+  g += `<circle cx="${hx+37}" cy="${hy+6}" r="5" fill="#1a0f0a"/>`;
+  g += `<path d="M${hx+20} ${hy+15} Q ${hx+27} ${hy+21} ${hx+34} ${hy+14}" stroke="${d}" stroke-width="2" fill="none" stroke-linecap="round"/>`;
+  if (o.tongue) g += `<path d="M${hx+24} ${hy+17} q 3 10 7 0" fill="#e86a7a"/>`;
+  // глаз
+  if (o.sad) g += `<path d="M${hx} ${hy-6} l 8 3" stroke="#1a0f0a" stroke-width="2.4" stroke-linecap="round"/><circle cx="${hx+4}" cy="${hy}" r="3" fill="#1a0f0a"/><circle cx="${hx+2}" cy="${hy+6}" r="2" fill="#7fc4ff"/>`;
+  else g += `<circle cx="${hx+4}" cy="${hy-3}" r="3.4" fill="#1a0f0a"/><circle cx="${hx+5.2}" cy="${hy-4.3}" r="1.1" fill="#fff"/>`;
+  // ухо
+  g += `<ellipse cx="${hx-8}" cy="${hy+9}" rx="8" ry="15" fill="${d}" transform="rotate(18 ${hx-8} ${hy+9})"/>`;
+  // бабочка
+  if (o.bow){
+    const bx = 40+len-4, by = 58;
+    g += `<polygon points="${bx-11},${by-7} ${bx},${by} ${bx-11},${by+7}" fill="#7a1730"/><polygon points="${bx+11},${by-7} ${bx},${by} ${bx+11},${by+7}" fill="#7a1730"/><circle cx="${bx}" cy="${by}" r="3" fill="#a3203f"/>`;
+  }
+  // цилиндр
+  if (o.hat){
+    g += `<g transform="rotate(-10 ${hx} ${hy-20})"><rect x="${hx-18}" y="${hy-21}" width="36" height="5" rx="2" fill="#151515"/><rect x="${hx-12}" y="${hy-46}" width="24" height="27" rx="2" fill="#1d1d1d"/><rect x="${hx-12}" y="${hy-26}" width="24" height="5" fill="#7a1730"/></g>`;
+  }
+  // смокинг: белая манишка
+  if (o.tux){
+    g += `<path d="M${40+len-18} 40 L ${40+len+4} 44 L ${40+len-2} 66 L ${40+len-22} 66 Z" fill="#fff" opacity=".92"/>`;
+  }
+  const cls = `dog ${o.run?'run':''} ${o.fit?'fit':''}`;
+  return `<svg class="${cls}" viewBox="0 -22 ${W} 114" width="${W*s}" height="${114*s}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${g}</svg>`;
+}
+const put = (id, html) => document.getElementById(id).innerHTML = html;
+
+/* ===== Статичные таксы ===== */
+put('heroDog', dog(170,{scale:1.35,bow:true,hat:true,tux:true,tongue:true,fit:true}));
+put('dc1', dog(90,{scale:.9,bow:true,hat:true,tux:true,coat:COATS[1]}));
+put('dc2', dog(110,{scale:.85,bow:true,coat:COATS[2],tongue:true}));
+put('dc3', dog(95,{scale:.9,sad:true,coat:COATS[3],spots:true}));
+put('m1', dog(150,{scale:.6,hat:true,coat:COATS[0]}));
+put('m2', dog(80,{scale:.75,bow:true,coat:COATS[2]}));
+put('m3', dog(70,{scale:.8,tongue:true,coat:COATS[4]}));
+put('m4', dog(100,{scale:.7,bow:true,coat:COATS[1]}));
+put('yayDog', dog(130,{scale:1,bow:true,hat:true,tux:true,tongue:true,fit:true}));
+
+/* ===== Бегущие таксы ===== */
+function fillTrack(id, n, scale){
+  const t = document.getElementById(id);
+  for(let i=0;i<n;i++){
+    const el = document.createElement('div');
+    el.className = 'runner';
+    el.style.setProperty('--dur', rnd(7,14).toFixed(1)+'s');
+    el.style.setProperty('--delay', (-rnd(0,14)).toFixed(1)+'s');
+    el.innerHTML = dog(Math.round(rnd(60,160)),{scale, run:true, coat:pick(COATS), bow:Math.random()<.4, tongue:Math.random()<.5, spots:Math.random()<.2});
+    t.appendChild(el);
+  }
+}
+fillTrack('trackTop', 6, .48);
+fillTrack('trackBottom', 6, .48);
+(() => {
+  const el = document.createElement('div');
+  el.className = 'runner';
+  el.style.setProperty('--dur','16s');
+  el.innerHTML = dog(1100,{scale:.8, run:true, bow:true, tongue:true});
+  document.getElementById('longTrack').appendChild(el);
+})();
+
+/* ===== Обратный отсчёт ===== */
+const target = new Date('2026-10-23T21:00:00+03:00').getTime();
+const pad = n => String(n).padStart(2,'0');
+function tick(){
+  let diff = Math.floor((target - Date.now())/1000);
+  if (diff <= 0){
+    document.getElementById('cd').innerHTML = '<div style="padding:14px 18px"><strong style="font-size:22px">Свидание уже идёт!</strong><em>почему ты читаешь сайт? иди ешь 🍣</em></div>';
+    document.getElementById('cdNote').textContent = '';
+    return;
+  }
+  const h = Math.floor(diff/3600), m = Math.floor(diff%3600/60), s = diff%60;
+  cdH.textContent = h; cdM.textContent = pad(m); cdS.textContent = pad(s);
+  setTimeout(tick, 1000);
+}
+tick();
+
+/* ===== Шкала радости ===== */
+const labels = [
+  '',
+  'Сдержанная радость. Такса-эмбрион.',
+  'Тихая радость. Нормальная такса.',
+  'Радость. Такса средней длины.',
+  'Большая радость. Такса удлиняется.',
+  'Очень большая радость. Такса бьёт рекорды.',
+  'Неприличная радость. Такса требует второй поводок.',
+  'Такса больше не помещается в квартиру.',
+  'Такса не помещается на экран. Как и моя радость.',
+  'Такса видна из космоса. NASA в недоумении.',
+  'Такса бесконечна. Это и есть любовь. 🌭💛'
+];
+function meter(){
+  const v = +meterRange.value;
+  put('meterDog', dog(40 + v*v*14, {scale:1, tongue:v>4, bow:v>6, hat:v>8, tux:v>8}));
+  meterLabel.textContent = labels[v];
+}
+meterRange.addEventListener('input', meter);
+meter();
+
+/* ===== Кнопка «Нет» убегает ===== */
+const noBtn = document.getElementById('no'), yesBtn = document.getElementById('yes');
+const noTexts = ['Нет','Точно?','Подумай ещё','Таксы расстроятся','Геннадий плачет','Ну Соня!','Кнопка сломалась','Ошибка 404','Колбасян не пускает','Просто нажми «Да»'];
+let noCount = 0;
+function dodge(e){
+  if (e) { e.preventDefault(); e.stopPropagation(); }
+  noCount++;
+  noBtn.textContent = noTexts[Math.min(noCount, noTexts.length-1)];
+  noBtn.style.position = 'fixed';
+  const r = noBtn.getBoundingClientRect();
+  noBtn.style.left = rnd(10, innerWidth - r.width - 10) + 'px';
+  noBtn.style.top  = rnd(10, innerHeight - r.height - 10) + 'px';
+  yesBtn.style.transform = `scale(${Math.min(1 + noCount*.12, 2.2)})`;
+  if (noCount > 7) noBtn.style.fontSize = Math.max(18 - (noCount-7)*2, 9) + 'px';
+}
+noBtn.addEventListener('mouseenter', dodge);
+noBtn.addEventListener('touchstart', dodge, {passive:false});
+noBtn.addEventListener('click', dodge);
+
+/* ===== «Да» и дождь из такс ===== */
+function rain(n=60){
+  for(let i=0;i<n;i++){
+    setTimeout(()=>{
+      const el = document.createElement('div');
+      el.className = 'drop';
+      el.style.left = rnd(-5, 95) + 'vw';
+      el.style.setProperty('--t', rnd(2.4,5).toFixed(2)+'s');
+      el.style.setProperty('--r', (Math.random()<.5?-1:1)*rnd(180,720)+'deg');
+      el.innerHTML = Math.random() < .8
+        ? dog(Math.round(rnd(50,140)), {scale:rnd(.35,.7), coat:pick(COATS), bow:Math.random()<.5, hat:Math.random()<.25, tongue:true})
+        : `<span style="font-size:${rnd(24,44)}px">${pick(['💛','🌭','🎩','❤️','🍣','✨'])}</span>`;
+      document.body.appendChild(el);
+      el.addEventListener('animationend', ()=>el.remove());
+    }, i*45);
+  }
+}
+yesBtn.addEventListener('click', e=>{
+  e.stopPropagation();
+  noBtn.style.display = 'none';
+  overlay.classList.add('show');
+  rain(80);
+  setTimeout(()=>rain(50), 2500);
+});
+document.getElementById('closeYay').addEventListener('click', e=>{
+  e.stopPropagation();
+  overlay.classList.remove('show');
+  rain(30);
+});
+
+/* ===== Тап в любом месте — пробегает такса ===== */
+document.addEventListener('click', e=>{
+  if (e.target.closest('button,input,summary,details,.overlay')) return;
+  const el = document.createElement('div');
+  el.className = 'zoomie';
+  el.style.left = (e.clientX - 60) + 'px';
+  el.style.top = (e.clientY - 40) + 'px';
+  el.innerHTML = dog(Math.round(rnd(60,180)), {scale:.6, run:true, coat:pick(COATS), tongue:true, bow:Math.random()<.4});
+  document.body.appendChild(el);
+  el.addEventListener('animationend', ()=>el.remove());
+});
+</script>
+</body>
+</html>
